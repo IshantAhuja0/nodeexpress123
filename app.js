@@ -1,19 +1,11 @@
+// imported express to make a backend server. require is used to import
 const express=require('express')
 const app=express();
-const stlist=require('./studenlist')
+const indexRouter=require('./Router/index')
+app.use(express.json())
 
-app.get('/getdata',(req,res)=>
-{
-  res.send({
-    status:200,
-    message:"helloworld"
-  })
+app.use('/',indexRouter)
+
+app.listen(8080,()=>{
+  console.log("api is lisntening on port 8080")
 })
-app.get('/getstudenlist',(req,res)=>
-  {
-    res.send({
-      status:200,
-      message:stlist.list
-    })
-  })
-app.listen(8080)
