@@ -1,36 +1,60 @@
 const stlist=require('../data')
-const getStudent=(req,res)=>
+const db=require('../Database/database')
+const getStudent=async(req,res)=>
   {
+    const database=await db.main();
+    const collection = database.collection('student');
+    const findResult = await collection.find({}).toArray();
     res.send({
       status:200,
-      message:stlist.list
+      message:findResult
     })
   }
-const postStudent=(req,res)=>{
+const postStudent=async(req,res)=>{
       console.log(req.body.Name)
+      const database=await db.main();
+      const collection = database.collection('student');
+      const insertResult = await collection.insertOne(req.body);
       res.send({
         status:200,
-        message:reqbody,        
+        message:insertResult,        
         response:"data saved successfully"
         })
 }
-const deleteStudent=(req,res)=>
+const deleteStudent=async(req,res)=>
   {
-    console.log(req.body.Name)
+   // console.log(req.body.Name)
+    const database=await db.main();
+    const collection = database.collection('student');
+    const Result = await collection.deleteOne({first_name:req.query.name});
+    if(Result.deletedCount>0)
+    {
     res.send({
       status:200,
-      message:req.query.id,
-      response:"data saved successfully"
+      message:Result,
+      response:"data deleted successfully"
     })
   }
+  else
+  {
+    res.send({
+      status:200,
+      
+      response:"record not available,please try with diffrent record(first_name)"
+    })
+  }
+  }
 
-  const updateStudent=(req,res)=>
+  const updateStudent=async(req,res)=>
     {
       console.log(req.body)
+      const database=await db.main();
+    const collection = database.collection('student');
+    const Result = await collection.updateOne({ first_name: req.query.name }, { $set: req.body });
       res.send({
         status:200,
-        message:req.query.id,
-        response:"data saved successfully"
+        message:Result,
+        response:"data updated successfully"
       })
     }
   module.exports={getStudent,postStudent,deleteStudent,updateStudent}

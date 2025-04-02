@@ -28,4 +28,7 @@ ishantishantishant{
 }{
           "Name": "naman",
           "Course": "react"
+}{
+          "Name": "naman",
+          "Course": "react"
 }
