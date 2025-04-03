@@ -1,6 +1,8 @@
 // imported express to make a backend server. require is used to import
 const express=require('express')
 const app=express();
+const cors=require('cors')
+app.use(cors());
 const indexRouter=require('./Router/index')
 app.use(express.json())
 

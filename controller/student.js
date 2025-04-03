@@ -39,7 +39,6 @@ const deleteStudent=async(req,res)=>
   {
     res.send({
       status:200,
-      
       response:"record not available,please try with diffrent record(first_name)"
     })
   }
