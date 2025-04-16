@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" onkeyup="searchOptimized()">
+  <input type="text" onkeyup="searchOptimizedThrottle()">
+  <script>
+function search(){
+console.log("searched")
+}
+
+function debounce(fun,delay){
+  let timerId;
+  return function (){
+  clearTimeout(timerId)
+  timerId=setTimeout(()=>{
+  search();
+},delay);
+}
+}
+function throttle(fun,delay){
+   let flag=true;
+   return function(){
+    if(flag===true){
+      search();
+      flag=false;
+      setTimeout(()=>flag=true,delay)
+    }
+   }
+}
+// const searchOptimized=debounce(search,1000);
+const searchOptimizedThrottle=throttle(search,1000);
+  </script>
+</body>
+</html>
